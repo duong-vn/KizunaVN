@@ -169,8 +169,12 @@ export default function WorkspaceShell({ children }: { children: ReactNode }) {
                   className="w-8 h-8 rounded-full bg-slate-200"
                 />
                 <div className="hidden md:block text-left">
-                  <div className="text-sm font-medium leading-tight">Tanaka K.</div>
-                  <div className="text-[10px] text-slate-500">日本人スタッフ</div>
+                  <div className="text-sm font-medium leading-tight">
+                    Tanaka K.
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    日本人スタッフ
+                  </div>
                 </div>
                 <ChevronDown className="w-4 h-4 text-slate-400" />
               </button>

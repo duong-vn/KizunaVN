@@ -2,6 +2,11 @@ const feedbacks = [
   "Tanakaさん: 報告の粒度が良くなりました。",
   "Namさん: Translation hỗ trợ rất nhanh và rõ ràng.",
   "Team Dev: 連携がスムーズで助かりました。",
+  "Hoaさん: レビューコメントが具体的で助かります。",
+  "PM: Tiến độ cập nhật đều đặn, rất tốt.",
+  "Khanh: Cảm ơn đã hỗ trợ phần tài liệu Nhật ngữ.",
+  "HR: 協力的なコミュニケーションが素晴らしいです。",
+  "Admin: ログ管理の整理に貢献してくれました。",
 ];
 
 export default function ProfilePage() {
@@ -20,7 +25,9 @@ export default function ProfilePage() {
 
         <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
           <h3 className="font-bold text-slate-900">プロフィール・評価画面</h3>
-          <p className="text-sm text-slate-500 mb-3">Màn hình Profile & Feedback</p>
+          <p className="text-sm text-slate-500 mb-3">
+            Màn hình Profile & Feedback
+          </p>
           <ul className="space-y-2 text-sm text-slate-700">
             {feedbacks.map((f) => (
               <li key={f} className="border border-slate-100 rounded-lg p-3">

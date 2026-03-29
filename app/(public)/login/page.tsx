@@ -5,7 +5,9 @@ export default function LoginPage() {
     <main className="min-h-screen grid place-items-center bg-gradient-to-br from-slate-100 to-blue-50 px-4">
       <div className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-lg p-6">
         <h1 className="text-2xl font-bold text-slate-900">KizunaVN Login</h1>
-        <p className="text-sm text-slate-500 mt-1">Trang đăng nhập (không dùng header/sidebar)</p>
+        <p className="text-sm text-slate-500 mt-1">
+          Trang đăng nhập (không dùng header/sidebar)
+        </p>
 
         <form className="mt-5 space-y-3">
           <input
@@ -26,7 +28,10 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <Link href="/" className="inline-block mt-4 text-sm text-blue-600 hover:underline">
+        <Link
+          href="/"
+          className="inline-block mt-4 text-sm text-blue-600 hover:underline"
+        >
           Go to dashboard
         </Link>
       </div>

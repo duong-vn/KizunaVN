@@ -10,11 +10,15 @@ export default function AdminPage() {
       <div className="max-w-5xl mx-auto space-y-5">
         <header>
           <h2 className="text-xl font-bold text-slate-900">管理者設定画面</h2>
-          <p className="text-sm text-slate-500">Màn hình Setting Admin (Role ID: 3)</p>
+          <p className="text-sm text-slate-500">
+            Màn hình Setting Admin (Role ID: 3)
+          </p>
         </header>
 
         <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-3">ユーザー管理 / Quản lý người dùng</h3>
+          <h3 className="font-semibold text-slate-800 mb-3">
+            ユーザー管理 / Quản lý người dùng
+          </h3>
           <div className="space-y-2">
             {users.map((u) => (
               <div
@@ -29,9 +33,12 @@ export default function AdminPage() {
         </section>
 
         <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-2">コンテンツ管理 / Quản lý nội dung</h3>
+          <h3 className="font-semibold text-slate-800 mb-2">
+            コンテンツ管理 / Quản lý nội dung
+          </h3>
           <p className="text-sm text-slate-600">
-            Phê duyệt bài viết Wiki, quản lý thông báo bảng tin và nhật ký hoạt động hệ thống.
+            Phê duyệt bài viết Wiki, quản lý thông báo bảng tin và nhật ký hoạt
+            động hệ thống.
           </p>
         </section>
       </div>
