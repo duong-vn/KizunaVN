@@ -231,15 +231,7 @@ export default function BoardPage() {
               </div>
             </div>
 
-            <div className="p-5 border-t border-slate-100 flex justify-end">
-              <button
-                type="button"
-                onClick={() => setSelectedPost(null)}
-                className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition-colors"
-              >
-                Đóng
-              </button>
-            </div>
+            <div className="p-5 border-t border-slate-100 flex justify-end"></div>
           </div>
         </div>
       )}
