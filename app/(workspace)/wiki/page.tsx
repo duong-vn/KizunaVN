@@ -14,9 +14,21 @@ const articles = [
   },
   { slug: "report-format", title: "進捗報告フォーマット集", tag: "Template" },
   { slug: "qa-glossary", title: "QA用語の日越対訳", tag: "Glossary" },
-  { slug: "onboarding-vn", title: "新メンバー向けオンボーディング", tag: "Onboarding" },
-  { slug: "conflict-resolution", title: "意見の違いを解決する会話例", tag: "Culture" },
-  { slug: "meeting-minutes", title: "議事録テンプレート（日本語/ベトナム語）", tag: "Meeting" },
+  {
+    slug: "onboarding-vn",
+    title: "新メンバー向けオンボーディング",
+    tag: "Onboarding",
+  },
+  {
+    slug: "conflict-resolution",
+    title: "意見の違いを解決する会話例",
+    tag: "Culture",
+  },
+  {
+    slug: "meeting-minutes",
+    title: "議事録テンプレート（日本語/ベトナム語）",
+    tag: "Meeting",
+  },
 ];
 
 export default function WikiListPage() {
@@ -27,7 +39,9 @@ export default function WikiListPage() {
           <h2 className="text-xl font-bold text-slate-900">
             文化Wiki記事一覧画面
           </h2>
-          <p className="text-sm text-slate-500">Màn hình DS bài viết Wiki</p>
+          <p className="text-sm text-slate-500">
+            Wiki記事一覧画面 / Màn hình DS bài viết Wiki
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -42,7 +56,8 @@ export default function WikiListPage() {
               </p>
               <h3 className="font-semibold text-slate-800">{item.title}</h3>
               <p className="text-xs text-slate-500 mt-2">
-                Nhấn để xem chi tiết nội quy/bài viết.
+                クリックして記事詳細を表示 / Nhấn để xem chi tiết nội quy/bài
+                viết.
               </p>
             </Link>
           ))}

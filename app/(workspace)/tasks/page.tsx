@@ -23,31 +23,31 @@ const columns: TaskColumn[] = [
         id: "spec-review",
         title: "要件定義書のレビュー",
         owner: "Tanaka",
-        due: "Hôm nay",
+        due: "今日 / Hôm nay",
       },
       {
         id: "weekly-report",
         title: "週次レポートの作成",
         owner: "Nam",
-        due: "Ngày mai",
+        due: "明日 / Ngày mai",
       },
       {
         id: "bug-triage",
         title: "不具合チケットの整理",
         owner: "Hoa",
-        due: "Thứ 4",
+        due: "水曜 / Thứ 4",
       },
       {
         id: "mail-draft",
         title: "顧客向けメール下書き",
         owner: "Kaito",
-        due: "Thứ 5",
+        due: "木曜 / Thứ 5",
       },
       {
         id: "wiki-update",
         title: "Wiki用語集の更新",
         owner: "Linh",
-        due: "Thứ 6",
+        due: "金曜 / Thứ 6",
       },
     ],
   },
@@ -59,28 +59,28 @@ const columns: TaskColumn[] = [
         id: "api-test",
         title: "API結合テスト",
         owner: "Hoa",
-        due: "Hôm nay",
+        due: "今日 / Hôm nay",
         horensou: "報告: API test 70% / 連絡: test env ổn định",
       },
       {
         id: "ui-polish",
         title: "Dashboard UI微調整",
         owner: "Minh",
-        due: "Ngày mai",
+        due: "明日 / Ngày mai",
         horensou: "相談: icon color consistency với design system",
       },
       {
         id: "log-audit",
         title: "翻訳ログ監査",
         owner: "Nam",
-        due: "Thứ 5",
+        due: "木曜 / Thứ 5",
         horensou: "報告: đã rà soát 40 bản ghi",
       },
       {
         id: "task-template",
-        title: "Task template chuẩn hóa",
+        title: "Task template標準化 / Chuẩn hóa Task template",
         owner: "Tanaka",
-        due: "Thứ 5",
+        due: "木曜 / Thứ 5",
         horensou: "連絡: gửi bản nháp cho team review 15:00",
       },
     ],
@@ -93,28 +93,28 @@ const columns: TaskColumn[] = [
         id: "db-migration",
         title: "DB移行スクリプト",
         owner: "Minh",
-        due: "Done",
+        due: "完了 / Done",
         horensou: "完了報告: migration thành công, không lỗi",
       },
       {
         id: "chat-history",
         title: "履歴検索UI実装",
         owner: "Khanh",
-        due: "Done",
+        due: "完了 / Done",
         horensou: "完了報告: search response < 300ms",
       },
       {
         id: "permission-map",
         title: "権限マッピング整理",
         owner: "Huy",
-        due: "Done",
+        due: "完了 / Done",
         horensou: "連絡: tài liệu phân quyền đã bàn giao",
       },
       {
         id: "board-news",
         title: "掲示板新着表示",
         owner: "Linh",
-        due: "Done",
+        due: "完了 / Done",
         horensou: "完了報告: deploy lên staging lúc 17:10",
       },
     ],
@@ -129,7 +129,9 @@ export default function TaskBoardPage() {
           <h2 className="text-xl font-bold text-slate-900">
             タスクボード（一覧）画面
           </h2>
-          <p className="text-sm text-slate-500">Màn hình DS Task (Kanban)</p>
+          <p className="text-sm text-slate-500">
+            タスク一覧（カンバン） / Màn hình DS Task (Kanban)
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -171,7 +173,7 @@ export default function TaskBoardPage() {
                           type="button"
                           className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
                         >
-                          Nhận task
+                          タスク受領 / Nhận task
                         </button>
                       )}
                       {col.status === "doing" && (
@@ -179,12 +181,12 @@ export default function TaskBoardPage() {
                           type="button"
                           className="rounded-md bg-emerald-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-emerald-700 transition-colors"
                         >
-                          Xong task
+                          完了にする / Xong task
                         </button>
                       )}
                       {col.status === "done" && (
                         <span className="rounded-md bg-emerald-100 px-3 py-1.5 text-xs font-semibold text-emerald-700">
-                          Hoàn thành
+                          完了 / Hoàn thành
                         </span>
                       )}
                     </div>

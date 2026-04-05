@@ -129,7 +129,7 @@ export default function BoardPage() {
               掲示板（コミュニティ）画面
             </h2>
             <p className="text-sm text-slate-500">
-              Màn hình Bảng tin Cộng đồng
+              コミュニティ掲示板画面 / Màn hình Bảng tin Cộng đồng
             </p>
           </div>
 
@@ -174,7 +174,7 @@ export default function BoardPage() {
                     {selectedPost.title}
                   </h3>
                   <p className="text-xs text-slate-500 mt-1">
-                    {selectedPost.author} • {selectedPost.date} lúc{" "}
+                    {selectedPost.author} • {selectedPost.date}{" "}
                     {selectedPost.postedAt}
                   </p>
                 </div>

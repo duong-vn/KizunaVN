@@ -1,4 +1,11 @@
-import { ArrowLeft, Info, Phone, SendHorizontal, Smile, Video } from "lucide-react";
+import {
+  ArrowLeft,
+  Info,
+  Phone,
+  SendHorizontal,
+  Smile,
+  Video,
+} from "lucide-react";
 import Link from "next/link";
 
 export default async function ChatDetailPage({
@@ -11,8 +18,8 @@ export default async function ChatDetailPage({
   return (
     <main className="flex-1 overflow-auto p-8 bg-slate-50/50">
       <div className="max-w-5xl mx-auto">
-        <section className="bg-white rounded-2xl border border-slate-200 shadow-sm min-h-[680px] flex flex-col overflow-hidden">
-          <header className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-gradient-to-r from-white to-blue-50/40">
+        <section className="bg-white rounded-2xl border border-slate-200 shadow-sm min-h-170 flex flex-col overflow-hidden">
+          <header className="px-5 py-4 border-b border-slate-100 flex items-center justify-between bg-linear-to-r from-white to-blue-50/40">
             <div className="flex items-center gap-3 min-w-0">
               <Link
                 href="/chat"
@@ -25,8 +32,12 @@ export default async function ChatDetailPage({
                 <span className="absolute right-0 bottom-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white" />
               </div>
               <div className="min-w-0">
-                <h2 className="text-base font-bold text-slate-900 truncate">{id}</h2>
-                <p className="text-xs text-emerald-600 font-medium">Đang hoạt động</p>
+                <h2 className="text-base font-bold text-slate-900 truncate">
+                  {id}
+                </h2>
+                <p className="text-xs text-emerald-600 font-medium">
+                  オンライン中 / Đang hoạt động
+                </p>
               </div>
             </div>
 
@@ -55,7 +66,8 @@ export default async function ChatDetailPage({
 
             <div className="flex justify-end">
               <div className="max-w-[75%] rounded-2xl rounded-tr-md bg-blue-600 px-4 py-2 text-sm text-white shadow-sm">
-                Cảm ơn team, mình sẽ xử lý phần API test trước 11:30.
+                ありがとうございます。11:30までにAPIテスト対応します。 / Cảm ơn
+                team, mình sẽ xử lý phần API test trước 11:30.
               </div>
             </div>
 
@@ -70,27 +82,29 @@ export default async function ChatDetailPage({
 
             <div className="flex justify-end">
               <div className="max-w-[75%] rounded-2xl rounded-tr-md bg-blue-600 px-4 py-2 text-sm text-white shadow-sm">
-                Ok anh, em sẽ cập nhật Ho-Ren-So vào cuối ngày nhé.
+                了解です。終業前にホウレンソウを更新します。 / Ok anh, em sẽ cập
+                nhật Ho-Ren-So vào cuối ngày nhé.
               </div>
             </div>
           </div>
 
           <footer className="border-t border-slate-100 p-4 bg-white">
-            <div className="rounded-2xl border border-slate-200 px-3 py-2 flex items-end gap-2 bg-slate-50">
-              <button className="p-2 rounded-full hover:bg-slate-200 transition-colors">
+            <div className="rounded-2xl border border-slate-200 px-3 py-2 flex items-start gap-2 bg-slate-50">
+              <button className="mt-1 p-2 rounded-full hover:bg-slate-200 transition-colors">
                 <Smile className="w-4 h-4 text-slate-500" />
               </button>
               <textarea
                 className="w-full resize-none bg-transparent text-sm text-slate-800 outline-none py-2"
                 rows={2}
-                placeholder="Nhập nội dung cần gửi..."
+                placeholder="送信内容を入力... / Nhập nội dung cần gửi..."
               />
-              <button className="inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700 transition-colors shrink-0">
-                <SendHorizontal className="w-4 h-4" /> Gửi
+              <button className="self-end inline-flex items-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-xs font-semibold text-white hover:bg-blue-700 transition-colors shrink-0">
+                <SendHorizontal className="w-4 h-4" /> 送信 / Gửi
               </button>
             </div>
             <p className="text-[11px] text-slate-500 mt-2 px-1">
-              AI dịch và gợi ý sắc thái sẽ áp dụng khi gửi.
+              送信時にAI翻訳とトーン提案を適用 / AI dịch và gợi ý sắc thái sẽ áp
+              dụng khi gửi.
             </p>
           </footer>
         </section>

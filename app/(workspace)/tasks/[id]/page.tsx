@@ -41,7 +41,9 @@ export default async function TaskDetailPage({
             <p className="font-semibold text-slate-800">要件定義書のレビュー</p>
           </div>
           <div className="flex flex-wrap items-center gap-2">
-            <span className={`text-xs px-2 py-1 rounded-full font-semibold ${statusClass}`}>
+            <span
+              className={`text-xs px-2 py-1 rounded-full font-semibold ${statusClass}`}
+            >
               {statusLabel}
             </span>
           </div>
@@ -60,8 +62,12 @@ export default async function TaskDetailPage({
                 報連相・進捗報告 (Hō-Ren-Sō)
               </h3>
               <div className="grid grid-cols-1 gap-3 text-sm">
-                <div className="rounded-lg border border-slate-200 p-3">報告: 本日の進捗 70%</div>
-                <div className="rounded-lg border border-slate-200 p-3">連絡: レビュー会議 15:00</div>
+                <div className="rounded-lg border border-slate-200 p-3">
+                  報告: 本日の進捗 70%
+                </div>
+                <div className="rounded-lg border border-slate-200 p-3">
+                  連絡: レビュー会議 15:00
+                </div>
                 <div className="rounded-lg border border-slate-200 p-3">
                   相談: API仕様の境界値の定義を確認したいです。
                 </div>
@@ -69,7 +75,9 @@ export default async function TaskDetailPage({
             </div>
 
             <div className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-              <h3 className="font-bold text-slate-800 mb-3">Hō-Ren-Sōを書く / Viết Ho-Ren-So</h3>
+              <h3 className="font-bold text-slate-800 mb-3">
+                Hō-Ren-Sōを書く / Viết Ho-Ren-So
+              </h3>
               <div className="space-y-3 text-sm">
                 <textarea
                   rows={3}
@@ -90,7 +98,7 @@ export default async function TaskDetailPage({
                   type="button"
                   className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 transition-colors"
                 >
-                  Lưu Hō-Ren-Sō
+                  保存 / Lưu Hō-Ren-Sō
                 </button>
               </div>
             </div>

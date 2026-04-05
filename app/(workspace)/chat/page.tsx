@@ -54,7 +54,7 @@ const chats = [
     id: "client-alpha",
     name: "Client Alpha",
     unread: 0,
-    latest: "Meeting minutes đã được gửi.",
+    latest: "議事録を送信しました / Meeting minutes đã được gửi.",
     time: "09:10",
     topic: "#client",
     avatar: "CA",
@@ -66,7 +66,7 @@ const chats = [
     id: "hr-notify",
     name: "HR Notice",
     unread: 3,
-    latest: "Nhắc nộp timesheet trước 17:00.",
+    latest: "17:00までにtimesheet提出 / Nhắc nộp timesheet trước 17:00.",
     time: "08:42",
     topic: "#notice",
     avatar: "HR",
@@ -78,7 +78,7 @@ const chats = [
     id: "qa-room",
     name: "QA Room",
     unread: 2,
-    latest: "Test case regression đã hoàn tất.",
+    latest: "回帰テストケース完了 / Test case regression đã hoàn tất.",
     time: "08:30",
     topic: "#qa",
     avatar: "QA",
@@ -90,7 +90,7 @@ const chats = [
     id: "infra-room",
     name: "Infra Team",
     unread: 0,
-    latest: "VPN maintenance tối nay 22:00.",
+    latest: "今夜22:00にVPNメンテ / VPN maintenance tối nay 22:00.",
     time: "08:15",
     topic: "#infra",
     avatar: "IF",
@@ -102,7 +102,7 @@ const chats = [
     id: "design-room",
     name: "Design Team",
     unread: 1,
-    latest: "Đã update UI kit phiên bản mới.",
+    latest: "UI kitを最新版に更新 / Đã update UI kit phiên bản mới.",
     time: "07:56",
     topic: "#uiux",
     avatar: "UX",
@@ -122,27 +122,33 @@ export default function ChatListPage() {
         <div className="mb-5 flex items-center justify-between gap-4 flex-wrap">
           <div>
             <h2 className="text-2xl font-bold text-slate-900 flex items-center gap-2">
-              <MessageCircleHeart className="w-6 h-6 text-blue-600" /> Messenger Style Chat
+              <MessageCircleHeart className="w-6 h-6 text-blue-600" /> KizunaVN
+              Chat Hub
             </h2>
-            <p className="text-sm text-slate-500">Trò chuyện thân thiện kiểu Messenger, dễ bấm và dễ theo dõi.</p>
+            <p className="text-sm text-slate-500">
+              社内コミュニケーション画面 / Khu vực trò chuyện nội bộ của
+              KizunaVN.
+            </p>
           </div>
           <div className="inline-flex items-center rounded-full bg-blue-50 px-3 py-1.5 text-sm font-semibold text-blue-700">
-            {allUnread} unread messages
+            {allUnread} 未読メッセージ / tin chưa đọc
           </div>
         </div>
 
         <div className="max-w-3xl">
-          <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col min-h-[640px]">
+          <section className="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col min-h-160">
             <div className="bg-slate-50 rounded-xl border border-slate-200 p-3 mb-3 flex items-center gap-2">
               <Search className="w-4 h-4 text-slate-400" />
               <input
                 className="w-full text-sm outline-none bg-transparent"
-                placeholder="Tìm phòng chat, thành viên, hashtag..."
+                placeholder="チャットルーム・メンバー・ハッシュタグを検索 / Tìm phòng chat, thành viên, hashtag..."
               />
             </div>
 
             <div className="mb-3">
-              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">Pinned</p>
+              <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-2">
+                固定 / Pinned
+              </p>
               <div className="flex gap-2 overflow-x-auto pb-1">
                 {pinnedRooms.map((room) => (
                   <Link
@@ -150,7 +156,9 @@ export default function ChatListPage() {
                     href={`/chat/${room.id}`}
                     className="shrink-0 rounded-xl border border-slate-200 px-3 py-2 bg-white hover:bg-blue-50 hover:border-blue-200 transition-colors"
                   >
-                    <p className="text-xs font-semibold text-slate-700">{room.name}</p>
+                    <p className="text-xs font-semibold text-slate-700">
+                      {room.name}
+                    </p>
                     <p className="text-[11px] text-blue-600">{room.topic}</p>
                   </Link>
                 ))}
@@ -175,19 +183,27 @@ export default function ChatListPage() {
                     </div>
                     <div className="min-w-0">
                       <div className="flex items-center gap-1.5">
-                        <p className="text-sm font-semibold text-slate-800 truncate">{chat.name}</p>
+                        <p className="text-sm font-semibold text-slate-800 truncate">
+                          {chat.name}
+                        </p>
                         {chat.unread > 0 && (
                           <span className="text-[10px] rounded-full bg-blue-600 text-white px-1.5 py-0.5 font-bold">
-                            new
+                            新着 / new
                           </span>
                         )}
                       </div>
-                      <p className="text-xs text-slate-500 truncate">{chat.latest}</p>
-                      <p className="text-[11px] text-blue-500 mt-0.5">{chat.topic}</p>
+                      <p className="text-xs text-slate-500 truncate">
+                        {chat.latest}
+                      </p>
+                      <p className="text-[11px] text-blue-500 mt-0.5">
+                        {chat.topic}
+                      </p>
                     </div>
                   </div>
                   <div className="text-right shrink-0 pl-2">
-                    <div className="text-[11px] text-slate-400">{chat.time}</div>
+                    <div className="text-[11px] text-slate-400">
+                      {chat.time}
+                    </div>
                     {chat.unread > 0 ? (
                       <div className="mt-1 inline-flex rounded-full bg-red-100 text-red-600 text-[11px] px-2 py-0.5 font-semibold">
                         {chat.unread}

@@ -11,7 +11,7 @@ const myTasks = [
     status: "進行中 / Doing",
     statusClass: "bg-yellow-100 text-yellow-700",
     title: "要件定義書のレビュー",
-    sub: "Review tài liệu requirement",
+    sub: "要件資料レビュー / Review tài liệu requirement",
     due: "今日まで (Hôm nay)",
     dueClass: "text-red-500",
   },
@@ -19,7 +19,7 @@ const myTasks = [
     status: "未着手 / To do",
     statusClass: "bg-slate-100 text-slate-600",
     title: "週次レポートの作成",
-    sub: "Làm báo cáo tuần",
+    sub: "週次レポート作成 / Làm báo cáo tuần",
     due: "明日 (Ngày mai)",
     dueClass: "text-slate-400",
   },
@@ -27,7 +27,7 @@ const myTasks = [
     status: "進行中 / Doing",
     statusClass: "bg-yellow-100 text-yellow-700",
     title: "翻訳ログの整理",
-    sub: "Chuẩn hóa lịch sử dịch",
+    sub: "翻訳履歴の標準化 / Chuẩn hóa lịch sử dịch",
     due: "2日後",
     dueClass: "text-slate-400",
   },
@@ -35,7 +35,7 @@ const myTasks = [
     status: "未着手 / To do",
     statusClass: "bg-slate-100 text-slate-600",
     title: "顧客向け報告メール",
-    sub: "Soạn mail báo cáo khách hàng",
+    sub: "顧客向け報告メール作成 / Soạn mail báo cáo khách hàng",
     due: "今週金曜",
     dueClass: "text-slate-400",
   },
@@ -61,7 +61,7 @@ const latestMessages = [
   {
     user: "PM Room",
     time: "08:56",
-    text: "Tiến độ sprint tuần này đã cập nhật.",
+    text: "今週スプリント進捗を更新しました / Tiến độ sprint tuần này đã cập nhật.",
     avatar: "PM",
     avatarClass: "bg-blue-100 text-blue-600",
     online: false,
@@ -82,28 +82,28 @@ const announcements = [
     badge2: "30",
     badgeClass: "bg-red-50 text-red-600",
     title: "4/30〜5/1の祝日休業のお知らせ",
-    body: "Thông báo lịch nghỉ lễ 30/4 - 1/5. Vui lòng cập nhật tiến độ trước kì nghỉ...",
+    body: "4/30-5/1の休業案内。休暇前に進捗更新をお願いします / Thông báo lịch nghỉ lễ 30/4 - 1/5. Vui lòng cập nhật tiến độ trước kì nghỉ...",
   },
   {
     badge: "New",
     badge2: "Wiki",
     badgeClass: "bg-emerald-50 text-emerald-600",
     title: "報連相（ホウレンソウ）の基本ガイド",
-    body: "Wiki: Hướng dẫn cơ bản về văn hóa Ho-Ren-So dành cho nhân viên mới...",
+    body: "Wiki: ホウレンソウ文化の基本ガイド / Hướng dẫn cơ bản về văn hóa Ho-Ren-So dành cho nhân viên mới...",
   },
   {
     badge: "Info",
     badge2: "IT",
     badgeClass: "bg-blue-50 text-blue-600",
     title: "VPNメンテナンスのお知らせ",
-    body: "Tối nay 22:00 sẽ bảo trì VPN trong 15 phút.",
+    body: "本日22:00にVPNを15分メンテナンス / Tối nay 22:00 sẽ bảo trì VPN trong 15 phút.",
   },
   {
     badge: "Team",
     badge2: "HR",
     badgeClass: "bg-amber-50 text-amber-600",
     title: "社内ランチ交流会（今週木曜）",
-    body: "Đăng ký tham gia lunch nội bộ trước thứ 4, 10:00.",
+    body: "水曜10:00までに社内ランチへ登録 / Đăng ký tham gia lunch nội bộ trước thứ 4, 10:00.",
   },
 ];
 
@@ -119,7 +119,9 @@ export default function DashboardPage() {
                   <CheckSquare className="w-5 h-5 mr-2 text-blue-600" />{" "}
                   マイタスク
                 </h2>
-                <p className="text-xs text-slate-500 mt-0.5">Task của tôi</p>
+                <p className="text-xs text-slate-500 mt-0.5">
+                  マイタスク / Task của tôi
+                </p>
               </div>
               <button className="text-sm text-blue-600 hover:underline font-medium">
                 すべて見る (Xem tất cả)
@@ -163,7 +165,7 @@ export default function DashboardPage() {
                   最新メッセージ
                 </h2>
                 <p className="text-xs text-slate-500 mt-0.5">
-                  Tin nhắn mới nhất
+                  最新メッセージ / Tin nhắn mới nhất
                 </p>
               </div>
               <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs font-bold rounded-full">
@@ -211,7 +213,7 @@ export default function DashboardPage() {
               最新のお知らせ
             </h2>
             <p className="text-xs text-slate-500 mt-0.5">
-              Thông báo / Bảng tin mới
+              最新通知 / Thông báo / Bảng tin mới
             </p>
           </div>
 
@@ -222,7 +224,7 @@ export default function DashboardPage() {
                 className="flex p-3 border border-slate-100 rounded-lg hover:shadow-md transition-shadow cursor-pointer"
               >
                 <div
-                  className={`w-12 h-12 rounded flex flex-col items-center justify-center flex-shrink-0 ${news.badgeClass}`}
+                  className={`w-12 h-12 rounded flex flex-col items-center justify-center shrink-0 ${news.badgeClass}`}
                 >
                   <span className="text-xs font-bold">{news.badge}</span>
                   <span className="text-base font-black leading-none mt-0.5">
