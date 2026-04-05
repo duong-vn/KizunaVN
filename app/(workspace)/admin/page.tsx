@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 type RoleKey = "staff" | "admin";
 
 type RoleInfo = {
@@ -57,90 +61,118 @@ const roleLabel = (role: RoleKey) =>
     : "日越スタッフ / Nhân viên Nhật - Việt";
 
 export default function AdminPage() {
+  const [viewMode, setViewMode] = useState<"admin" | "user">("admin");
+
+  const switchClass = (mode: "admin" | "user") =>
+    viewMode === mode
+      ? "rounded-md bg-blue-600 px-2.5 py-1 text-[11px] font-semibold text-white"
+      : "rounded-md px-2.5 py-1 text-[11px] font-semibold text-slate-500 hover:bg-slate-100";
+
   return (
     <main className="flex-1 overflow-auto p-8 bg-slate-50/50">
       <div className="max-w-5xl mx-auto space-y-5">
-        <header>
-          <h2 className="text-xl font-bold text-slate-900">管理者設定画面</h2>
-        </header>
-
-        <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-3">
-            Role Matrix / 権限ロール
-          </h3>
-          <div className="grid md:grid-cols-2 gap-3">
-            {roles.map((role) => (
-              <article
-                key={role.key}
-                className="rounded-xl border border-slate-200 p-4 bg-slate-50/40"
-              >
-                <h4 className="text-sm font-bold text-slate-900">
-                  {role.ja} / {role.vi}
-                </h4>
-                <p className="text-xs text-slate-500 mt-1">
-                  {role.description}
-                </p>
-                <ul className="mt-3 space-y-1.5 text-xs text-slate-700">
-                  {role.permissions.map((permission) => (
-                    <li key={permission}>- {permission}</li>
-                  ))}
-                </ul>
-              </article>
-            ))}
+        <header className="flex items-start justify-between gap-3">
+          <div>
+            <h2 className="text-xl font-bold text-slate-900">管理者設定画面</h2>
+            <p className="text-xs text-slate-500 mt-1">
+              {viewMode === "admin"
+                ? "管理者表示 / Admin view: full settings"
+                : "ユーザー表示 / User view: configuration only"}
+            </p>
           </div>
-        </section>
 
-        <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-slate-800">
-              ユーザー管理 / Quản lý người dùng
-            </h3>
+          <div className="rounded-lg border border-slate-200 bg-white p-1 shadow-sm">
             <button
               type="button"
-              className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+              className={switchClass("user")}
+              onClick={() => setViewMode("user")}
             >
-              + ユーザー追加 / Thêm người dùng
+              User
+            </button>
+            <button
+              type="button"
+              className={switchClass("admin")}
+              onClick={() => setViewMode("admin")}
+            >
+              Admin
             </button>
           </div>
+        </header>
 
-          <div className="overflow-x-auto">
-            <table className="min-w-full text-sm">
-              <thead>
-                <tr className="text-left text-xs text-slate-500 border-b border-slate-100">
-                  <th className="py-2 pr-3 font-medium">Name</th>
-                  <th className="py-2 pr-3 font-medium">Team</th>
-                  <th className="py-2 pr-3 font-medium">Role</th>
-                  <th className="py-2 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((u) => (
-                  <tr
-                    key={u.name}
-                    className="border-b border-slate-100 last:border-b-0"
-                  >
-                    <td className="py-3 pr-3 text-slate-800">{u.name}</td>
-                    <td className="py-3 pr-3 text-slate-600">{u.team}</td>
-                    <td className="py-3 pr-3 text-slate-700">
-                      {roleLabel(u.role)}
-                    </td>
-                    <td className="py-3">
-                      <span
-                        className={
-                          u.status === "active"
-                            ? "inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
-                            : "inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700"
-                        }
-                      >
-                        {u.status === "active" ? "Active" : "Pending"}
-                      </span>
-                    </td>
+        {viewMode === "admin" && (
+          <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
+            <h3 className="font-semibold text-slate-800 mb-3">
+              Role Matrix / 権限ロール
+            </h3>
+            <div className="grid md:grid-cols-2 gap-3">
+              {roles.map((role) => (
+                <article
+                  key={role.key}
+                  className="rounded-xl border border-slate-200 p-4 bg-slate-50/40"
+                >
+                  <h4 className="text-sm font-bold text-slate-900">
+                    {role.ja} / {role.vi}
+                  </h4>
+                  <p className="text-xs text-slate-500 mt-1">{role.description}</p>
+                  <ul className="mt-3 space-y-1.5 text-xs text-slate-700">
+                    {role.permissions.map((permission) => (
+                      <li key={permission}>- {permission}</li>
+                    ))}
+                  </ul>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {viewMode === "admin" && (
+          <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="font-semibold text-slate-800">
+                ユーザー管理 / Quản lý người dùng
+              </h3>
+              <button
+                type="button"
+                className="rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50"
+              >
+                + ユーザー追加 / Thêm người dùng
+              </button>
+            </div>
+
+            <div className="overflow-x-auto">
+              <table className="min-w-full text-sm">
+                <thead>
+                  <tr className="text-left text-xs text-slate-500 border-b border-slate-100">
+                    <th className="py-2 pr-3 font-medium">Name</th>
+                    <th className="py-2 pr-3 font-medium">Team</th>
+                    <th className="py-2 pr-3 font-medium">Role</th>
+                    <th className="py-2 font-medium">Status</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </section>
+                </thead>
+                <tbody>
+                  {users.map((u) => (
+                    <tr key={u.name} className="border-b border-slate-100 last:border-b-0">
+                      <td className="py-3 pr-3 text-slate-800">{u.name}</td>
+                      <td className="py-3 pr-3 text-slate-600">{u.team}</td>
+                      <td className="py-3 pr-3 text-slate-700">{roleLabel(u.role)}</td>
+                      <td className="py-3">
+                        <span
+                          className={
+                            u.status === "active"
+                              ? "inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
+                              : "inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700"
+                          }
+                        >
+                          {u.status === "active" ? "Active" : "Pending"}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </section>
+        )}
 
         <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
           <h3 className="font-semibold text-slate-800 mb-3">
@@ -166,8 +198,7 @@ export default function AdminPage() {
                   ログイン履歴を90日保持 / Nhật ký đăng nhập 90 ngày
                 </span>
                 <span className="text-xs text-slate-500">
-                  社内セキュリティ向けのアクセス追跡 / Theo dõi truy cập để hỗ
-                  trợ bảo mật nội bộ.
+                  社内セキュリティ向けのアクセス追跡 / Theo dõi truy cập để hỗ trợ bảo mật nội bộ.
                 </span>
               </span>
             </label>
@@ -188,46 +219,41 @@ export default function AdminPage() {
               <input type="checkbox" className="mt-0.5" />
               <span>
                 <span className="block text-sm font-medium text-slate-800">
-                  リアルタイムセキュリティ警告 / Bật cảnh báo bảo mật theo thời
-                  gian thực
+                  リアルタイムセキュリティ警告 / Bật cảnh báo bảo mật theo thời gian thực
                 </span>
                 <span className="text-xs text-slate-500">
-                  異常検知時に管理者へ通知 / Gửi cảnh báo đến nhóm 管理者 khi
-                  phát hiện bất thường.
+                  異常検知時に管理者へ通知 / Gửi cảnh báo đến nhóm 管理者 khi phát hiện bất thường.
                 </span>
               </span>
             </label>
           </div>
         </section>
 
-        <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
-          <h3 className="font-semibold text-slate-800 mb-2">
-            コンテンツ管理 / Quản lý nội dung
-          </h3>
-          <p className="text-sm text-slate-600">
-            Wiki審査フロー、掲示板通知、公開スケジュール、ロール別編集ログを設定
-            / Thiết lập quy trình duyệt bài Wiki, quản lý thông báo bảng tin,
-            lịch xuất bản và nhật ký chỉnh sửa theo từng role.
-          </p>
-          <div className="mt-3 grid sm:grid-cols-3 gap-3 text-xs">
-            <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
-              <div className="text-slate-500">審査待ち記事 / Bài chờ duyệt</div>
-              <div className="mt-1 text-lg font-bold text-slate-900">12</div>
-            </div>
-            <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
-              <div className="text-slate-500">
-                予約済み通知 / Thông báo đã lên lịch
+        {viewMode === "admin" && (
+          <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
+            <h3 className="font-semibold text-slate-800 mb-2">
+              コンテンツ管理 / Quản lý nội dung
+            </h3>
+            <p className="text-sm text-slate-600">
+              Wiki審査フロー、掲示板通知、公開スケジュール、ロール別編集ログを設定 /
+              Thiết lập quy trình duyệt bài Wiki, quản lý thông báo bảng tin, lịch xuất bản và nhật ký chỉnh sửa theo từng role.
+            </p>
+            <div className="mt-3 grid sm:grid-cols-3 gap-3 text-xs">
+              <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
+                <div className="text-slate-500">審査待ち記事 / Bài chờ duyệt</div>
+                <div className="mt-1 text-lg font-bold text-slate-900">12</div>
               </div>
-              <div className="mt-1 text-lg font-bold text-slate-900">5</div>
-            </div>
-            <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
-              <div className="text-slate-500">
-                モデレーション警告 / Cảnh báo moderation
+              <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
+                <div className="text-slate-500">予約済み通知 / Thông báo đã lên lịch</div>
+                <div className="mt-1 text-lg font-bold text-slate-900">5</div>
               </div>
-              <div className="mt-1 text-lg font-bold text-slate-900">2</div>
+              <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
+                <div className="text-slate-500">モデレーション警告 / Cảnh báo moderation</div>
+                <div className="mt-1 text-lg font-bold text-slate-900">2</div>
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         <section className="bg-white border border-slate-200 rounded-xl shadow-sm p-5">
           <h3 className="font-semibold text-slate-800 mb-2">
