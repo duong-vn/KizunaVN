@@ -62,6 +62,21 @@ const roleLabel = (role: RoleKey) =>
 
 export default function AdminPage() {
   const [viewMode, setViewMode] = useState<"admin" | "user">("admin");
+  const [userQuery, setUserQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState<
+    "all" | "active" | "pending"
+  >("all");
+  const normalizedUserQuery = userQuery.trim().toLowerCase();
+  const filteredUsers = users.filter((user) => {
+    const matchesQuery =
+      normalizedUserQuery.length === 0 ||
+      [user.name, user.team, roleLabel(user.role)].some((value) =>
+        value.toLowerCase().includes(normalizedUserQuery),
+      );
+    const matchesStatus =
+      statusFilter === "all" || user.status === statusFilter;
+    return matchesQuery && matchesStatus;
+  });
 
   const switchClass = (mode: "admin" | "user") =>
     viewMode === mode
@@ -113,7 +128,9 @@ export default function AdminPage() {
                   <h4 className="text-sm font-bold text-slate-900">
                     {role.ja} / {role.vi}
                   </h4>
-                  <p className="text-xs text-slate-500 mt-1">{role.description}</p>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {role.description}
+                  </p>
                   <ul className="mt-3 space-y-1.5 text-xs text-slate-700">
                     {role.permissions.map((permission) => (
                       <li key={permission}>- {permission}</li>
@@ -139,6 +156,31 @@ export default function AdminPage() {
               </button>
             </div>
 
+            <div className="mb-3 flex flex-wrap items-center gap-3">
+              <input
+                className="flex-1 min-w-55 rounded-lg border border-slate-200 px-3 py-2 text-sm"
+                placeholder="ユーザー検索 / Tìm user..."
+                value={userQuery}
+                onChange={(event) => setUserQuery(event.target.value)}
+              />
+              <select
+                value={statusFilter}
+                onChange={(event) =>
+                  setStatusFilter(
+                    event.target.value as "all" | "active" | "pending",
+                  )
+                }
+                className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700"
+              >
+                <option value="all">すべて / Tất cả</option>
+                <option value="active">Active</option>
+                <option value="pending">Pending</option>
+              </select>
+              <span className="text-xs text-slate-400">
+                {filteredUsers.length} users
+              </span>
+            </div>
+
             <div className="overflow-x-auto">
               <table className="min-w-full text-sm">
                 <thead>
@@ -150,24 +192,40 @@ export default function AdminPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {users.map((u) => (
-                    <tr key={u.name} className="border-b border-slate-100 last:border-b-0">
-                      <td className="py-3 pr-3 text-slate-800">{u.name}</td>
-                      <td className="py-3 pr-3 text-slate-600">{u.team}</td>
-                      <td className="py-3 pr-3 text-slate-700">{roleLabel(u.role)}</td>
-                      <td className="py-3">
-                        <span
-                          className={
-                            u.status === "active"
-                              ? "inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
-                              : "inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700"
-                          }
-                        >
-                          {u.status === "active" ? "Active" : "Pending"}
-                        </span>
+                  {filteredUsers.length === 0 ? (
+                    <tr>
+                      <td
+                        colSpan={4}
+                        className="py-6 text-center text-xs text-slate-500"
+                      >
+                        該当するユーザーがいません / Không có user phù hợp.
                       </td>
                     </tr>
-                  ))}
+                  ) : (
+                    filteredUsers.map((u) => (
+                      <tr
+                        key={u.name}
+                        className="border-b border-slate-100 last:border-b-0"
+                      >
+                        <td className="py-3 pr-3 text-slate-800">{u.name}</td>
+                        <td className="py-3 pr-3 text-slate-600">{u.team}</td>
+                        <td className="py-3 pr-3 text-slate-700">
+                          {roleLabel(u.role)}
+                        </td>
+                        <td className="py-3">
+                          <span
+                            className={
+                              u.status === "active"
+                                ? "inline-flex rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-medium text-emerald-700"
+                                : "inline-flex rounded-full bg-amber-50 px-2.5 py-1 text-xs font-medium text-amber-700"
+                            }
+                          >
+                            {u.status === "active" ? "Active" : "Pending"}
+                          </span>
+                        </td>
+                      </tr>
+                    ))
+                  )}
                 </tbody>
               </table>
             </div>
@@ -198,7 +256,8 @@ export default function AdminPage() {
                   ログイン履歴を90日保持 / Nhật ký đăng nhập 90 ngày
                 </span>
                 <span className="text-xs text-slate-500">
-                  社内セキュリティ向けのアクセス追跡 / Theo dõi truy cập để hỗ trợ bảo mật nội bộ.
+                  社内セキュリティ向けのアクセス追跡 / Theo dõi truy cập để hỗ
+                  trợ bảo mật nội bộ.
                 </span>
               </span>
             </label>
@@ -219,10 +278,12 @@ export default function AdminPage() {
               <input type="checkbox" className="mt-0.5" />
               <span>
                 <span className="block text-sm font-medium text-slate-800">
-                  リアルタイムセキュリティ警告 / Bật cảnh báo bảo mật theo thời gian thực
+                  リアルタイムセキュリティ警告 / Bật cảnh báo bảo mật theo thời
+                  gian thực
                 </span>
                 <span className="text-xs text-slate-500">
-                  異常検知時に管理者へ通知 / Gửi cảnh báo đến nhóm 管理者 khi phát hiện bất thường.
+                  異常検知時に管理者へ通知 / Gửi cảnh báo đến nhóm 管理者 khi
+                  phát hiện bất thường.
                 </span>
               </span>
             </label>
@@ -235,20 +296,27 @@ export default function AdminPage() {
               コンテンツ管理 / Quản lý nội dung
             </h3>
             <p className="text-sm text-slate-600">
-              Wiki審査フロー、掲示板通知、公開スケジュール、ロール別編集ログを設定 /
-              Thiết lập quy trình duyệt bài Wiki, quản lý thông báo bảng tin, lịch xuất bản và nhật ký chỉnh sửa theo từng role.
+              Wiki審査フロー、掲示板通知、公開スケジュール、ロール別編集ログを設定
+              / Thiết lập quy trình duyệt bài Wiki, quản lý thông báo bảng tin,
+              lịch xuất bản và nhật ký chỉnh sửa theo từng role.
             </p>
             <div className="mt-3 grid sm:grid-cols-3 gap-3 text-xs">
               <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
-                <div className="text-slate-500">審査待ち記事 / Bài chờ duyệt</div>
+                <div className="text-slate-500">
+                  審査待ち記事 / Bài chờ duyệt
+                </div>
                 <div className="mt-1 text-lg font-bold text-slate-900">12</div>
               </div>
               <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
-                <div className="text-slate-500">予約済み通知 / Thông báo đã lên lịch</div>
+                <div className="text-slate-500">
+                  予約済み通知 / Thông báo đã lên lịch
+                </div>
                 <div className="mt-1 text-lg font-bold text-slate-900">5</div>
               </div>
               <div className="rounded-lg bg-slate-50 border border-slate-100 p-3">
-                <div className="text-slate-500">モデレーション警告 / Cảnh báo moderation</div>
+                <div className="text-slate-500">
+                  モデレーション警告 / Cảnh báo moderation
+                </div>
                 <div className="mt-1 text-lg font-bold text-slate-900">2</div>
               </div>
             </div>

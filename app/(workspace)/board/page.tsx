@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Heart, ThumbsUp, Sparkles, X } from "lucide-react";
+import { Heart, ThumbsUp, Sparkles, X, Search } from "lucide-react";
 
 type Post = {
   id: string;
@@ -109,6 +109,20 @@ export default function BoardPage() {
   const [activeReaction, setActiveReaction] = useState<
     "like" | "love" | "insight" | null
   >(null);
+  const [query, setQuery] = useState("");
+  const [authorFilter, setAuthorFilter] = useState("all");
+  const normalizedQuery = query.trim().toLowerCase();
+  const authors = Array.from(new Set(posts.map((post) => post.author)));
+  const filteredPosts = posts.filter((post) => {
+    const matchesQuery =
+      normalizedQuery.length === 0 ||
+      [post.title, post.author, post.content].some((value) =>
+        value.toLowerCase().includes(normalizedQuery),
+      );
+    const matchesAuthor =
+      authorFilter === "all" || post.author === authorFilter;
+    return matchesQuery && matchesAuthor;
+  });
 
   const reactionButtonClass = (reaction: "like" | "love" | "insight") =>
     activeReaction === reaction
@@ -133,20 +147,53 @@ export default function BoardPage() {
             </p>
           </div>
 
+          <div className="mb-4 flex flex-wrap items-center gap-3">
+            <div className="flex flex-1 min-w-60 items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2">
+              <Search className="w-4 h-4 text-slate-400" />
+              <input
+                className="w-full text-sm outline-none"
+                placeholder="タイトル・作者を検索 / Tìm theo tiêu đề, tác giả..."
+                value={query}
+                onChange={(event) => setQuery(event.target.value)}
+              />
+            </div>
+            <select
+              value={authorFilter}
+              onChange={(event) => setAuthorFilter(event.target.value)}
+              className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm text-slate-700"
+            >
+              <option value="all">すべての作者 / Tất cả</option>
+              {authors.map((author) => (
+                <option key={author} value={author}>
+                  {author}
+                </option>
+              ))}
+            </select>
+            <span className="text-xs text-slate-400">
+              {filteredPosts.length} posts
+            </span>
+          </div>
+
           <div className="bg-white rounded-xl border border-slate-200 shadow-sm divide-y divide-slate-100">
-            {posts.map((post) => (
-              <button
-                key={post.title}
-                type="button"
-                onClick={() => openPostDetail(post)}
-                className="w-full text-left p-5 hover:bg-slate-50 transition-colors"
-              >
-                <h3 className="font-semibold text-slate-800">{post.title}</h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  {post.author} • {post.date} {post.postedAt}
-                </p>
-              </button>
-            ))}
+            {filteredPosts.length === 0 ? (
+              <div className="p-6 text-center text-sm text-slate-500">
+                該当する投稿がありません / Không có bài viết phù hợp.
+              </div>
+            ) : (
+              filteredPosts.map((post) => (
+                <button
+                  key={post.title}
+                  type="button"
+                  onClick={() => openPostDetail(post)}
+                  className="w-full text-left p-5 hover:bg-slate-50 transition-colors"
+                >
+                  <h3 className="font-semibold text-slate-800">{post.title}</h3>
+                  <p className="text-xs text-slate-500 mt-1">
+                    {post.author} • {post.date} {post.postedAt}
+                  </p>
+                </button>
+              ))
+            )}
           </div>
         </div>
       </main>

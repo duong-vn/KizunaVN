@@ -40,12 +40,26 @@ export default async function TaskDetailPage({
             <p className="text-xs text-slate-500">Task title</p>
             <p className="font-semibold text-slate-800">要件定義書のレビュー</p>
           </div>
+          <div>
+            <p className="text-xs text-slate-500">Due</p>
+            <p className="text-sm font-semibold text-slate-700">
+              今日 / Hôm nay
+            </p>
+          </div>
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={`text-xs px-2 py-1 rounded-full font-semibold ${statusClass}`}
             >
               {statusLabel}
             </span>
+            {status === "todo" && (
+              <button
+                type="button"
+                className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-semibold text-white hover:bg-blue-700 transition-colors"
+              >
+                タスク受領 / Nhận task
+              </button>
+            )}
           </div>
           <div>
             <p className="text-xs text-slate-500">Description</p>
